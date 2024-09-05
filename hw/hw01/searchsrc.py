@@ -61,11 +61,23 @@ def countSimpleFuncEC(lines):
 #Start of main
 parser = argparse.ArgumentParser()
 parser.add_argument("file", type=str)
-parser.add_argument("--include")
-parser.add_argument("--member")
-parser.add_argument("--ptr")
-parser.add_argument("--simplefunc")
-parser.add_argument("--simplefuncec")
+parser.add_argument("--include", action="store_true")
+parser.add_argument("--member", action="store_true")
+parser.add_argument("--ptr", action="store_true")
+parser.add_argument("--simplefunc", action="store_true")
+parser.add_argument("--simplefuncec", action="store_true")
 args = parser.parse_args()
 filename = args.file
 lines = readFile(filename)
+print("file: "+str(filename)+" lines: "+str(len(lines)), end = " ")
+if args.include:
+    print(" include: "+str(countInclude(filename)), end = " ")
+if args.member:
+    print(" member: "+str(countMember(filename)), end = " ")
+if args.ptr:
+    print(" ptr: "+str(countPter(filename)), end = " ")
+if args.simplefunc:
+    print(" simplefunc: "+str(countSimpleFunc(filename)), end = " ")
+if args.simplefuncec:
+    print("simplefuncec: "+str(countSimpleFuncEc(filename)), end = " ")
+print("")
