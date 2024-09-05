@@ -26,7 +26,7 @@ def countInclude(lines):
 def countMember(lines):
     count = 0
     for line in lines:
-        if line.count("::") == 1 and ";" not in line:
+        if line.count("::") == 1 and ";" not in line: #check for ";" to make sure it's really a function
             count+=1
     return count
 
@@ -43,8 +43,9 @@ def countPter(lines):
 def countSimpleFunc(lines):
     count = 0
     for i in range(len(lines)):
-        if "::" in lines[i] and "}" in lines[i+3] and lines[i].count("::")==1:
-            count+=1
+        if "::" in lines[i] and i+3>len(lines): #check that there is a function present and that you will not read past list
+            if "}" in lines[i+3] and lines[i].count("::")==1:
+                count+=1
     return count
 
 #INPUT: a list where each element is a string consisting of each line in a file
@@ -53,7 +54,7 @@ def countSimpleFuncEc(lines):
     count=0
     for i in range(len(lines)):
         if lines[i].count("::") == 1 and ";" not in lines[i]:
-            if ("{" in lines[i] and "}" in lines[i+2]): #or ("{" in lines[i+3]):
+            if ("{" in lines[i] and "}" in lines[i+2]):
                 count+=1
     return count
 
