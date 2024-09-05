@@ -26,7 +26,7 @@ def countInclude(lines):
 def countMember(lines):
     count = 0
     for line in lines:
-        if "::" in line:
+        if line.count("::") == 1 and ";" not in line:
             count+=1
     return count
 
@@ -35,8 +35,7 @@ def countMember(lines):
 def countPter(lines):
     count = 0
     for line in lines:
-        if "->" in line:
-            count+=1
+        count+=line.count("->")
     return count
 
 #INPUT: a list where each element is a string consisiting of each line in a file
@@ -44,17 +43,17 @@ def countPter(lines):
 def countSimpleFunc(lines):
     count = 0
     for i in range(len(lines)):
-        if "::" in lines[i] and "}" in lines[i+3]:
+        if "::" in lines[i] and "}" in lines[i+3] and lines[i].count("::")==1:
             count+=1
     return count
 
 #INPUT: a list where each element is a string consisting of each line in a file
 #OUTPUT: the number of times a function is called (with the first curly brace on its own line, or on the same line as the function name, and the last curly brace on a seperate line) that only has a single line of code or less
-def countSimpleFuncEC(lines):
+def countSimpleFuncEc(lines):
     count=0
     for i in range(len(lines)):
-        if "::" in lines[i]:
-            if ("{" in lines[i] and "}" in lines[i+2]) or ("{" in lines[i+3]):
+        if lines[i].count("::") == 1 and ";" not in lines[i]:
+            if ("{" in lines[i] and "}" in lines[i+2]): #or ("{" in lines[i+3]):
                 count+=1
     return count
 
@@ -67,17 +66,19 @@ parser.add_argument("--ptr", action="store_true")
 parser.add_argument("--simplefunc", action="store_true")
 parser.add_argument("--simplefuncec", action="store_true")
 args = parser.parse_args()
+
 filename = args.file
 lines = readFile(filename)
+
 print("file: "+str(filename)+" lines: "+str(len(lines)), end = " ")
 if args.include:
-    print(" include: "+str(countInclude(filename)), end = " ")
+    print("include: "+str(countInclude(lines)), end = " ")
 if args.member:
-    print(" member: "+str(countMember(filename)), end = " ")
+    print("member: "+str(countMember(lines)), end = " ")
 if args.ptr:
-    print(" ptr: "+str(countPter(filename)), end = " ")
+    print("ptr: "+str(countPter(lines)), end = " ")
 if args.simplefunc:
-    print(" simplefunc: "+str(countSimpleFunc(filename)), end = " ")
+    print("simplefunc: "+str(countSimpleFunc(lines)), end = " ")
 if args.simplefuncec:
-    print("simplefuncec: "+str(countSimpleFuncEc(filename)), end = " ")
+    print("simplefuncec: "+str(countSimpleFuncEc(lines)), end = " ")
 print("")
