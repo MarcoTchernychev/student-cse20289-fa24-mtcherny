@@ -71,15 +71,15 @@ args = parser.parse_args()
 filename = args.file
 lines = readFile(filename)
 
-print("file: "+str(filename)+" lines: "+str(len(lines)), end = " ")
+print("file: "+str(filename))
+print("lines: "+str(len(lines)))
 if args.include:
-    print("include: "+str(countInclude(lines)), end = " ")
+    print("include: "+str(countInclude(lines)))
 if args.member:
-    print("member: "+str(countMember(lines)), end = " ")
+    print("member: "+str(countMember(lines)))
 if args.ptr:
-    print("ptr: "+str(countPter(lines)), end = " ")
+    print("ptr: "+str(countPter(lines)))
 if args.simplefunc:
-    print("simplefunc: "+str(countSimpleFunc(lines)), end = " ")
+    print("simplefunc: "+str(countSimpleFunc(lines)))
 if args.simplefuncec:
-    print("simplefuncec: "+str(countSimpleFuncEc(lines)), end = " ")
-print("")
+    print("simplefuncec: "+str(countSimpleFuncEc(lines)))
