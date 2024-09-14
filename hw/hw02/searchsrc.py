@@ -2,12 +2,14 @@
 #mtcherny@nd.edu
 
 import argparse
+import subprocess
+import os
 
 #INPUT: string called filename that's from the command line
 #OUTPUT: a list where each element is a string consisting of the contents of each line in filename 
-def readFile(filename):
+def readFile(filename, path):
     lines = []
-    with open(filename, 'r') as f:
+    with open(path+filename, 'r') as f:
         for line in f:
             lines.append(line)
     return lines
@@ -59,6 +61,7 @@ def countSimpleFuncEc(lines):
     return count
 
 #Start of main
+path = "../hw01/.gitignore/"
 parser = argparse.ArgumentParser()
 parser.add_argument("file", type=str)
 parser.add_argument("--include", action="store_true")
@@ -69,9 +72,11 @@ parser.add_argument("--simplefuncec", action="store_true")
 args = parser.parse_args()
 
 filename = args.file
-lines = readFile(filename)
+#path = subprocess.run(['where', filename], check=True).stdout.strip()
+lines = readFile(filename, path)
 
 print("file: "+str(filename))
+print("path: "+path)
 print("lines: "+str(len(lines)))
 if args.include:
     print("include: "+str(countInclude(lines)))
