@@ -2,14 +2,13 @@
 #mtcherny@nd.edu
 
 import argparse
-import subprocess
-import os
+import re
 
 #INPUT: string called filename that's from the command line
 #OUTPUT: a list where each element is a string consisting of the contents of each line in filename 
-def readFile(filename, path):
+def readFile(filename):
     lines = []
-    with open(path+filename, 'r') as f:
+    with open(filename, 'r') as f:
         for line in f:
             lines.append(line)
     return lines
@@ -24,67 +23,60 @@ def countInclude(lines):
     return count
 
 #INPUT: a list where each element is a string consisiting of each line in a file
-#OUTPUT: the number of times "::" is detected
-def countMember(lines):
+#OUTPUT: the number of times a local include statemnt is added (using  "", not <>)
+def countIncludeLocal(lines):
+    locinc = re.compile(r'#include ".*"')
     count = 0
     for line in lines:
-        if line.count("::") == 1 and ";" not in line: #check for ";" to make sure it's really a function
+        mo = locinc.search(line)
+        if mo:
             count+=1
     return count
 
 #INPUT: a list where each element is a string consisiting of each line in a file
-#OUTPUT: the number of times "->" is detected
-def countPter(lines):
+#OUTPUT: the number of times "::" is detected
+def countMemberFuncs(lines):
+    memfunc = re.compile(r'w*::w*')
     count = 0
     for line in lines:
-        count+=line.count("->")
+        mo = memfunc.search(line)
+        if mo:
+            count+=1
     return count
 
 #INPUT: a list where each element is a string consisiting of each line in a file
 #OUTPUT: the number of times a function is called (with the first curly brace on its own line, and the last curly brace on a seperate line) that only has a single line of code or less
-def countSimpleFunc(lines):
+def countOneLineFuncs(lines):
+    OLF1 = re.compile(r'w*::w*') 
+    OLF2 = re.compile(r'.*')
+    OLF3 = re.compile(r'}')
     count = 0
     for i in range(len(lines)):
-        if "::" in lines[i] and i+3>len(lines): #check that there is a function present and that you will not read past list
-            if "}" in lines[i+3] and lines[i].count("::")==1:
-                count+=1
-    return count
-
-#INPUT: a list where each element is a string consisting of each line in a file
-#OUTPUT: the number of times a function is called (with the first curly brace on its own line, or on the same line as the function name, and the last curly brace on a seperate line) that only has a single line of code or less
-def countSimpleFuncEc(lines):
-    count=0
-    for i in range(len(lines)):
-        if lines[i].count("::") == 1 and ";" not in lines[i]:
-            if ("{" in lines[i] and "}" in lines[i+2]):
+        if i+2<len(lines): #check that there is a function present and that you will not read past list
+            if OLF1.search(lines[i]) and OLF2.search(lines[i+1]) and OLF3.search(lines[i+2]):
                 count+=1
     return count
 
 #Start of main
-path = "../hw01/.gitignore/"
 parser = argparse.ArgumentParser()
 parser.add_argument("file", type=str)
 parser.add_argument("--include", action="store_true")
-parser.add_argument("--member", action="store_true")
-parser.add_argument("--ptr", action="store_true")
-parser.add_argument("--simplefunc", action="store_true")
-parser.add_argument("--simplefuncec", action="store_true")
+parser.add_argument("--includelocal", action="store_true")
+parser.add_argument("--memberfuncs", action="store_true")
+parser.add_argument("--onelinefuncs", action="store_true")
 args = parser.parse_args()
 
 filename = args.file
-#path = subprocess.run(['where', filename], check=True).stdout.strip()
-lines = readFile(filename, path)
+lines = readFile(filename)
 
-print("file: "+str(filename))
-print("path: "+path)
+print("path: " + str(filename).rsplit('/',1)[0]+'/')
+print("file: "+str(filename).split('/')[-1])
 print("lines: "+str(len(lines)))
 if args.include:
     print("include: "+str(countInclude(lines)))
-if args.member:
-    print("member: "+str(countMember(lines)))
-if args.ptr:
-    print("ptr: "+str(countPter(lines)))
-if args.simplefunc:
-    print("simplefunc: "+str(countSimpleFunc(lines)))
-if args.simplefuncec:
-    print("simplefuncec: "+str(countSimpleFuncEc(lines)))
+if args.includelocal:
+    print("includelocal: "+str(countIncludeLocal(lines)))
+if args.memberfuncs:
+    print("memberfuncs: "+str(countMemberFuncs(lines)))
+if args.onelinefuncs:
+    print("onelinefuncs: "+str(countOneLineFuncs(lines)))
