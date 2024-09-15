@@ -22,9 +22,25 @@ def get_data(path, thefile):
 def print_dict(data):
     print(f"{data['path']}, {data['file']}, {data['lines']} LOC, {data['include']} I, {data['includelocal']} LI, {data['memberfuncs']} MF, {data['onelinefuncs']} OLF")
 
+#INPUT: path as a directory, flag denoting if output should be quiet (default is false), flag denoting if recursion is allowed (default is False)
+#PURPOSE: scan directory in argument, invoke get_data so each file in dir has a dict, print pretty output for each file unless quiet arument is True
+#OUTPUT: list of dicts with each file's data
+def ScanDir(path, quiet = False, recursive = False):
+    dict_list = [] #list to be popoulated with data from each dict
+    for file in os.listdir(path):
+        data_dict = get_data(path, file)
+        dict_list.append(data_dict)
+        if(quiet==False):
+            print_dict(data_dict)
+    return dict_list
+
 parser = argparse.ArgumentParser()
 parser.add_argument("file", type=str)
 parser.add_argument("path", type=str)
+parser.add_argument("-r", action="store_true", default = False, help = "denotes if directories should be processed recursively (default is false)")
+parser.add_argument("--csv XXX", action="store_true", default = None, help = "an argument that also has a filename specified for the output (default is none)")
+parser.add_argument("--stats", action="store_true", default = False, help = "denotes if stats should be computed across the numeric fields and reported (default is false)")
+parser.add_argument("--quiet", action="store_true", default = False, help = "requests the output to stay quiet (no output of the pretty, compact one-line per file from Task 2) (default is False)")
 args = parser.parse_args()
 
-print_dict(get_data(args.file, args.path))
+ScanDir("../hw01/src", args.quiet, args.r)
