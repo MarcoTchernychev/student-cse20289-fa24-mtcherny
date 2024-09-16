@@ -11,6 +11,7 @@ def readFile(filename):
     with open(filename, 'r') as f:
         for line in f:
             lines.append(line)
+    
     return lines
 
 #INPUT: a list where each element is a string consisiting of each line in a file
