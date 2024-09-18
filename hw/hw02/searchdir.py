@@ -81,11 +81,11 @@ def getStats(dict_list):
         name_list.append(dict['file'])
     with open('stats.txt', 'w') as file: #using f strings write to stats.txt all the statistics required
         file.write("Field, Min, MinFile, Max, MaxFile, Mean, Median, StdDev \n")
-        file.write(f"lines, {min(lines_list)}, {name_list[lines_list.index(min(lines_list))]}, {max(lines_list)}, {name_list[lines_list.index(max(lines_list))]}, {statistics.mean(lines_list)}, {statistics.median(lines_list)}, {statistics.stdev(lines_list):.1f}\n")
-        file.write(f"includes, {min(inc_list)}, {name_list[inc_list.index(min(inc_list))]}, {max(inc_list)}, {name_list[inc_list.index(max(inc_list))]}, {statistics.mean(inc_list)}, {statistics.median(inc_list)}, {statistics.stdev(inc_list):.1f}\n")
-        file.write(f"localincludes, {min(li_list)}, {name_list[li_list.index(min(li_list))]}, {max(li_list)}, {name_list[li_list.index(max(li_list))]}, {statistics.mean(li_list)}. {statistics.median(li_list)}, {statistics.stdev(li_list):.1f}\n")
-        file.write(f"memberfuncs, {min(mf_list)}, {name_list[mf_list.index(min(mf_list))]}, {max(mf_list)}, {name_list[mf_list.index(max(mf_list))]}, {statistics.mean(mf_list)}, {statistics.median(mf_list)}, {statistics.stdev(mf_list):.1f}\n")
-        file.write(f"onelinefuncs, {min(olf_list)}, {name_list[olf_list.index(min(olf_list))]}, {max(olf_list)}, {name_list[olf_list.index(max(olf_list))]}, {statistics.mean(olf_list)}, {statistics.median(olf_list)}, {statistics.stdev(olf_list):.1f}")
+        file.write(f"lines, {min(lines_list)}, {name_list[lines_list.index(min(lines_list))]}, {max(lines_list)}, {name_list[lines_list.index(max(lines_list))]}, {statistics.mean(lines_list):.1f}, {statistics.median(lines_list)}, {statistics.stdev(lines_list):.1f}\n")
+        file.write(f"includes, {min(inc_list)}, {name_list[inc_list.index(min(inc_list))]}, {max(inc_list)}, {name_list[inc_list.index(max(inc_list))]}, {statistics.mean(inc_list):.1f}, {statistics.median(inc_list)}, {statistics.stdev(inc_list):.1f}\n")
+        file.write(f"localincludes, {min(li_list)}, {name_list[li_list.index(min(li_list))]}, {max(li_list)}, {name_list[li_list.index(max(li_list))]}, {statistics.mean(li_list):.1f}. {statistics.median(li_list)}, {statistics.stdev(li_list):.1f}\n")
+        file.write(f"memberfuncs, {min(mf_list)}, {name_list[mf_list.index(min(mf_list))]}, {max(mf_list)}, {name_list[mf_list.index(max(mf_list))]}, {statistics.mean(mf_list):.1f}, {statistics.median(mf_list)}, {statistics.stdev(mf_list):.1f}\n")
+        file.write(f"onelinefuncs, {min(olf_list)}, {name_list[olf_list.index(min(olf_list))]}, {max(olf_list)}, {name_list[olf_list.index(max(olf_list))]}, {statistics.mean(olf_list):.1f}, {statistics.median(olf_list)}, {statistics.stdev(olf_list):.1f}")
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--file", type=str)

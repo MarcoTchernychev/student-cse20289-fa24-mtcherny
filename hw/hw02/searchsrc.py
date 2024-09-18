@@ -1,6 +1,5 @@
 #Marco Tchernychev
 #mtcherny@nd.edu
-
 import argparse
 import re
 
@@ -8,7 +7,8 @@ import re
 #OUTPUT: a list where each element is a string consisting of the contents of each line in filename 
 def readFile(filename):
     lines = []
-    with open(filename, 'r') as f:
+    #with open(filename, 'r') as f:
+    with open(filename, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f:
             lines.append(line)
     
@@ -19,14 +19,14 @@ def readFile(filename):
 def countInclude(lines):
     count = 0
     for line in lines:
-        if "#include" in line:
+        if line.startswith("#include"):
             count+=1
     return count
 
 #INPUT: a list where each element is a string consisiting of each line in a file
 #OUTPUT: the number of times a local include statemnt is added (using  "", not <>)
 def countIncludeLocal(lines):
-    locinc = re.compile(r'#include ".*"')
+    locinc = re.compile(r'^#include ".*"')
     count = 0
     for line in lines:
         mo = locinc.search(line)
@@ -37,7 +37,7 @@ def countIncludeLocal(lines):
 #INPUT: a list where each element is a string consisiting of each line in a file
 #OUTPUT: the number of times "::" is detected
 def countMemberFuncs(lines):
-    memfunc = re.compile(r'w*::w*')
+    memfunc = re.compile(r'^[a-zA-Z0-9].*::.*')
     count = 0
     for line in lines:
         mo = memfunc.search(line)
@@ -48,7 +48,7 @@ def countMemberFuncs(lines):
 #INPUT: a list where each element is a string consisiting of each line in a file
 #OUTPUT: the number of times a function is called (with the first curly brace on its own line, and the last curly brace on a seperate line) that only has a single line of code or less
 def countOneLineFuncs(lines):
-    OLF1 = re.compile(r'w*::w*') 
+    OLF1 = re.compile(r'^[a-zA-Z0-9].*::.*') 
     OLF2 = re.compile(r'.*')
     OLF3 = re.compile(r'}')
     count = 0
