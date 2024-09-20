@@ -48,13 +48,14 @@ def countMemberFuncs(lines):
 #INPUT: a list where each element is a string consisiting of each line in a file
 #OUTPUT: the number of times a function is called (with the first curly brace on its own line, and the last curly brace on a seperate line) that only has a single line of code or less
 def countOneLineFuncs(lines):
-    OLF1 = re.compile(r'^[a-zA-Z0-9].*::.*') 
-    OLF2 = re.compile(r'.*')
-    OLF3 = re.compile(r'}')
+    OLF1 = re.compile(r'^[a-zA-Z0-9].*::.*')
+    OLF2 = re.compile(r'\{') 
+    OLF3 = re.compile(r'.*')
+    OLF4 = re.compile(r'\}')
     count = 0
     for i in range(len(lines)):
         if i+2<len(lines): #check that there is a function present and that you will not read past list
-            if OLF1.search(lines[i]) and OLF2.search(lines[i+1]) and OLF3.search(lines[i+2]):
+            if OLF1.search(lines[i]) and OLF2.search(lines[i+1]) and OLF3.search(lines[i+2]) and OLF4.search(lines[i+3]):
                 count+=1
     return count
 
