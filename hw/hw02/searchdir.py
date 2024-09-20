@@ -5,6 +5,7 @@ import subprocess
 import argparse
 import csv
 import statistics
+import re
 
 #INPUT: file name and path
 #OUTPUT: data from the specified file name and path in a dictionary {lines: ..., include: ..., etc}
@@ -32,10 +33,11 @@ def ScanDir(path, quiet = False, recursive = False):
     if recursive:
         for dirpath, _, filenames in os.walk(path): #use os.walk to recursively go through current directory and all subdirectories
             for file in filenames: #for each iteration above, access the filenames and its directory path for the directory that os.walk accessed
-                data_dict = get_data(dirpath, file) #make the dictionary for the file
-                dict_list.append(data_dict) #add it to the list
-                if(quiet==False):
-                    print_dict(data_dict) #print a pretty output if quiet argument is false
+                if ".cc" in file:########
+                    data_dict = get_data(dirpath, file) #make the dictionary for the file
+                    dict_list.append(data_dict) #add it to the list
+                    if(quiet==False):
+                        print_dict(data_dict) #print a pretty output if quiet argument is false
         if(len(dict_list)==0): #if dict_list is empty there was no directory so print that
             print("Directory does not exist or lacks source files")
             exit(1)
@@ -43,10 +45,11 @@ def ScanDir(path, quiet = False, recursive = False):
     else:
         try: #try to run the for loop on the file given, if it doesn't work (except), print that the directory doesn't exist
             for file in os.listdir(path): #access all files under a directory
-                data_dict = get_data(path, file)
-                dict_list.append(data_dict)
-                if(quiet==False):
-                    print_dict(data_dict)
+                if ".cc" in file:######
+                    data_dict = get_data(path, file)
+                    dict_list.append(data_dict)
+                    if(quiet==False):
+                        print_dict(data_dict)
             return dict_list
         except:
             print("Directory does not exist or lacks source files")
@@ -84,7 +87,7 @@ def getStats(dict_list):
         file.write(f"lines, {min(lines_list)}, {name_list[lines_list.index(min(lines_list))]}, {max(lines_list)}, {name_list[lines_list.index(max(lines_list))]}, {statistics.mean(lines_list):.1f}, {statistics.median(lines_list)}, {statistics.stdev(lines_list):.1f}\n")
         file.write(f"includes, {min(inc_list)}, {name_list[inc_list.index(min(inc_list))]}, {max(inc_list)}, {name_list[inc_list.index(max(inc_list))]}, {statistics.mean(inc_list):.1f}, {statistics.median(inc_list)}, {statistics.stdev(inc_list):.1f}\n")
         file.write(f"localincludes, {min(li_list)}, {name_list[li_list.index(min(li_list))]}, {max(li_list)}, {name_list[li_list.index(max(li_list))]}, {statistics.mean(li_list):.1f}. {statistics.median(li_list)}, {statistics.stdev(li_list):.1f}\n")
-        file.write(f"memberfuncs, {min(mf_list)}, {name_list[mf_list.index(min(mf_list))]}, {max(mf_list)}, {name_list[mf_list.index(max(mf_list))]}, {statistics.mean(mf_list):.1f}, {statistics.median(mf_list)}, {statistics.stdev(mf_list):.1f}\n")
+        file.write(f"memberfuncs, {min(mf_list)}, {name_list[mf_list.index(min(mf_list))]}, {max(mf_list)}, {name_list[mf_list.index(max(mf_list))]}, rm {statistics.mean(mf_list):.1f}, {statistics.median(mf_list)}, {statistics.stdev(mf_list):.1f}\n")
         file.write(f"onelinefuncs, {min(olf_list)}, {name_list[olf_list.index(min(olf_list))]}, {max(olf_list)}, {name_list[olf_list.index(max(olf_list))]}, {statistics.mean(olf_list):.1f}, {statistics.median(olf_list)}, {statistics.stdev(olf_list):.1f}")
 
 parser = argparse.ArgumentParser()

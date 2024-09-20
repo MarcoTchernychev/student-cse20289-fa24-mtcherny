@@ -6,8 +6,12 @@ import re
 #INPUT: string called filename that's from the command line
 #OUTPUT: a list where each element is a string consisting of the contents of each line in filename 
 def readFile(filename):
+    #ccfile = re.compile(r'$.cc')
+    #mo = ccfile.search(filename)
+    #print("YO: "+filename)
+    #if mo:
     lines = []
-    #with open(filename, 'r') as f:
+        #with open(filename, 'r') as f:
     with open(filename, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f:
             lines.append(line)
