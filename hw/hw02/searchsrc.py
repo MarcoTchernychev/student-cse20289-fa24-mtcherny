@@ -6,12 +6,7 @@ import re
 #INPUT: string called filename that's from the command line
 #OUTPUT: a list where each element is a string consisting of the contents of each line in filename 
 def readFile(filename):
-    #ccfile = re.compile(r'$.cc')
-    #mo = ccfile.search(filename)
-    #print("YO: "+filename)
-    #if mo:
     lines = []
-        #with open(filename, 'r') as f:
     with open(filename, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f:
             lines.append(line)
@@ -53,14 +48,23 @@ def countMemberFuncs(lines):
 #OUTPUT: the number of times a function is called (with the first curly brace on its own line, and the last curly brace on a seperate line) that only has a single line of code or less
 def countOneLineFuncs(lines):
     OLF1 = re.compile(r'^[a-zA-Z0-9].*::.*')
-    OLF2 = re.compile(r'\{') 
+    OLF2 = re.compile(r'^\{') 
     OLF3 = re.compile(r'.*')
-    OLF4 = re.compile(r'\}')
+    OLF4 = re.compile(r'^\}')
     count = 0
+    #for i in range(len(lines)):
+    #    if i+2<len(lines): #check that there is a function present and that you will not read past list
+    #        if OLF1.search(lines[i]) and OLF2.search(lines[i+1]) and OLF3.search(lines[i+2]) and OLF4.search(lines[i+3]):
+    #            count+=1
+    
     for i in range(len(lines)):
-        if i+2<len(lines): #check that there is a function present and that you will not read past list
-            if OLF1.search(lines[i]) and OLF2.search(lines[i+1]) and OLF3.search(lines[i+2]) and OLF4.search(lines[i+3]):
-                count+=1
+        if OLF1.search(lines[i]): #check if member func
+            if i+3<len(lines): #see if there's space to check for [   memfunc <new line> { <new line> stuff <new line> }   ]
+                if OLF2.search(lines[i+1]) and OLF3.search(lines[i+2]) and OLF4.search(lines[i+3]): #search for func with above format
+                    count+=1
+            if i+2<len(lines): #see if there's space to check for [   memfunc{ <new line> stuff <new line> }   ]
+                if OLF3.search(lines[i+1]) and OLF4.search(lines[i+2]): #search for sun with above format
+                    count+=1
     return count
 
 #Start of main
