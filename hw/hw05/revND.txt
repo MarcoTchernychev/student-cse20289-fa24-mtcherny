@@ -1,0 +1,7 @@
+Name:   nd.edu
+Address: 34.193.237.201
+reverse lookup: ec2-34-193-237-201.compute-1.amazonaws.com.
+
+Name:   cse.nd.edu
+Address: 35.153.191.90
+reverse lookup: ec2-35-153-191-90.compute-1.amazonaws.com.
