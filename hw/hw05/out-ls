@@ -1,0 +1,13 @@
+total 184
+-rw------- 1 mtcherny notre-dame   120 Oct  7 19:42 host-ip-mac.csv
+-rw------- 1 mtcherny notre-dame     9 Oct  7 19:21 NETID
+-rw------- 1 mtcherny notre-dame 80171 Oct  7 19:21 Out-Dump.txt
+-rw------- 1 mtcherny notre-dame     0 Oct  7 19:44 out-ls
+-rw------- 1 mtcherny notre-dame  3714 Oct  7 19:21 output-endFile.txt
+-rw------- 1 mtcherny notre-dame    58 Oct  7 19:21 output-reverse.txt
+-rw------- 1 mtcherny notre-dame  1853 Oct  7 19:21 output-startFile.txt
+-rw------- 1 mtcherny notre-dame   464 Oct  7 19:21 output-xxd.txt
+-rw------- 1 mtcherny notre-dame    35 Oct  7 19:21 README.md
+-rw------- 1 mtcherny notre-dame   201 Oct  7 19:21 revND.txt
+-rw------- 1 mtcherny notre-dame 67592 Oct  7 19:21 TestSmall.pcap
+-rw------- 1 mtcherny notre-dame     4 Oct  7 19:21 theLines.txt
