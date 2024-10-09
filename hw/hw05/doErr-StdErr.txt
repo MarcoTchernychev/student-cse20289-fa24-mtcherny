@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "doErr.py", line 2, in <module>
+    print(Hello)
+NameError: name 'Hello' is not defined
