@@ -68,25 +68,26 @@ def countOneLineFuncs(lines):
     return count
 
 #Start of main
-parser = argparse.ArgumentParser()
-parser.add_argument("file", type=str)
-parser.add_argument("--include", action="store_true")
-parser.add_argument("--includelocal", action="store_true")
-parser.add_argument("--memberfuncs", action="store_true")
-parser.add_argument("--onelinefuncs", action="store_true")
-args = parser.parse_args()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("file", type=str)
+    parser.add_argument("--include", action="store_true")
+    parser.add_argument("--includelocal", action="store_true")
+    parser.add_argument("--memberfuncs", action="store_true")
+    parser.add_argument("--onelinefuncs", action="store_true")
+    args = parser.parse_args()
 
-filename = args.file
-lines = readFile(filename)
+    filename = args.file
+    lines = readFile(filename)
 
-print("path: " + str(filename).rsplit('/',1)[0]+'/')
-print("file: "+str(filename).split('/')[-1])
-print("lines: "+str(len(lines)))
-if args.include:
-    print("include: "+str(countInclude(lines)))
-if args.includelocal:
-    print("includelocal: "+str(countIncludeLocal(lines)))
-if args.memberfuncs:
-    print("memberfuncs: "+str(countMemberFuncs(lines)))
-if args.onelinefuncs:
-    print("onelinefuncs: "+str(countOneLineFuncs(lines)))
+    print("path: " + str(filename).rsplit('/',1)[0]+'/')
+    print("file: "+str(filename).split('/')[-1])
+    print("lines: "+str(len(lines)))
+    if args.include:
+        print("include: "+str(countInclude(lines)))
+    if args.includelocal:
+        print("includelocal: "+str(countIncludeLocal(lines)))
+    if args.memberfuncs:
+        print("memberfuncs: "+str(countMemberFuncs(lines)))
+    if args.onelinefuncs:
+        print("onelinefuncs: "+str(countOneLineFuncs(lines)))

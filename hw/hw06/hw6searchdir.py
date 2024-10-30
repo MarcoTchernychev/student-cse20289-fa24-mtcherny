@@ -12,7 +12,7 @@ import re
 def get_data(path, thefile):
     data = {} #dict to populated and returned
     file_path = os.path.join(path, thefile) #fusing path together
-    result = subprocess.run(["python3", "searchsrc.py", file_path, "--include", "--includelocal", "--memberfuncs","--onelinefuncs"], stdout = subprocess.PIPE) #run searchsrc
+    result = subprocess.run(["python3", "hw6searchsrc.py", file_path, "--include", "--includelocal", "--memberfuncs","--onelinefuncs"], stdout = subprocess.PIPE) #run searchsrc
     output = result.stdout.decode('utf-8') #make it a string
     line_list = output.split('\n') #split the lines
     line_list.remove('') #get rid of trailing empty string
