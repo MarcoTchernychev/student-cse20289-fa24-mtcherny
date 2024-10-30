@@ -67,6 +67,11 @@ def countOneLineFuncs(lines):
                     count+=1
     return count
 
+#INPUT: str filepath and name
+#OUTPUT: tuple with file path in first, name in second
+def get_path_and_name(filepathandname):
+    return str(filepathandname).rsplit('/',1)[0]+'/', str(filepathandname).split('/')[-1]
+
 #Start of main
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
