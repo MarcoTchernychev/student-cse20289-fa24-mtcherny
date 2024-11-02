@@ -1,7 +1,6 @@
 import unittest
 import hw6searchsrc
 import subprocess
-import re
 path = "/escnfs/home/mtcherny/repos/student-cse20289-fa24-mtcherny/hw/hw06/tests/data/"
 
 class TestClass(unittest.TestCase):
