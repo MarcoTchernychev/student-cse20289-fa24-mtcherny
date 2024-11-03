@@ -16,7 +16,7 @@ def readFile(filename):
 #INPUT: a list where each element is a string consisiting of each line in a file
 #OUTPUT: the number of times an include statement is detected
 def countInclude(lines):
-    count = 0
+    count = 1
     for line in lines:
         if line.startswith("#include"):
             count+=1

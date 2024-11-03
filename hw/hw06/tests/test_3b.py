@@ -1,3 +1,5 @@
+#Marco Tchernychev
+#mtcherny@nd.edu
 import unittest
 import hw6searchsrc
 path = "/escnfs/home/mtcherny/repos/student-cse20289-fa24-mtcherny/hw/hw06/tests/data/"

@@ -1,3 +1,5 @@
+#Marco Tchernychev
+#mtcherny@nd.edu
 import unittest
 import hw6searchsrc
 import subprocess

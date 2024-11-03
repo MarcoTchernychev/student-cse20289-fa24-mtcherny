@@ -1,3 +1,5 @@
+#Marco Tchernychev
+#mtcherny@nd.edu
 #!/usr/bin/bash
 datetime=$(date +%Y-%m-%d_%H-%M)
 #set -x
@@ -18,7 +20,7 @@ if [ -z "$count" ]; then
 else
     #Check if the count is equal to 4
     if [ "$count" -eq 4 ]; then
-        echo "log is going to hw06 directory"
+        echo "log $log is going to hw06 directory"
     fi
     #Check if the count is not equal to 4
     if [ "$count" -ne 4 ]; then
