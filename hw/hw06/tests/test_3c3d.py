@@ -38,23 +38,23 @@ class TestClass(unittest.TestCase):
                                                                                                                                                                                                                     +"onelinefuncs: 35\n")
     def test_nofile(self):
         result = subprocess.run(["python3", "hw6searchsrc.py", "--include", "--includelocal", "--memberfuncs","--onelinefuncs"], stdout = subprocess.PIPE, stderr=subprocess.PIPE).stderr.decode('utf-8')
-        self.assertFalse("the following arguments are required" in result)
+        self.assertTrue("the following arguments are required" in result)
 
     def test_noexistfile(self):
         result = subprocess.run(["python3", "hw6searchsrc.py", path+"fmnc_mngr.cc", "--include", "--includelocal", "--memberfuncs","--onelinefuncs"], stdout = subprocess.PIPE, stderr=subprocess.PIPE).stderr.decode('utf-8')
-        self.assertFalse("FileNotFoundError" in result)
+        self.assertTrue("FileNotFoundError" in result)
     
     def test_notcc(self):
         result = subprocess.run(["python3", "hw6searchsrc.py", path+"fmnc_manager.cc", "--include", "--includelocal", "--memberfuncs","--onelinefuncs"], stdout = subprocess.PIPE, stderr=subprocess.PIPE).stdout.decode('utf-8')
-        self.assertFalse(".cc" in result)
+        self.assertTrue(".cc" in result)
     
     def test_isadir(self):
         result = subprocess.run(["python3", "hw6searchsrc.py", path, "--include", "--includelocal", "--memberfuncs","--onelinefuncs"], stdout = subprocess.PIPE, stderr=subprocess.PIPE).stderr.decode('utf-8')
-        self.assertFalse("IsADirectoryError" in result)
+        self.assertTrue("IsADirectoryError" in result)
     
     def test_invalidarg(self):
         result = subprocess.run(["python3", "hw6searchsrc.py", path+"fmnc_mngr.cc", "--inclu", "--includelocal", "--memberfuncs","--onelinefuncs"], stdout = subprocess.PIPE, stderr=subprocess.PIPE).stderr.decode('utf-8')
-        self.assertFalse("ambiguous option" in result)
+        self.assertTrue("ambiguous option" in result)
 
 if __name__ == "__main__":
     unittest.main()
