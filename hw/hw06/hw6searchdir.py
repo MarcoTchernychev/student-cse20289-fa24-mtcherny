@@ -101,12 +101,13 @@ args = parser.parse_args()
 if not args.path:
     print("Make sure you specify a directory to scan")
     exit(1)
-if not args.csv:
-    print("Make sure you specify the name of the csv file to write to")
-    exit(1)
+#if not args.csv:
+#    print("Make sure you specify the name of the csv file to write to")
+#    exit(1)
 
 dict_list = ScanDir(args.path, args.quiet, args.r)
-ExtractCSV(args.csv,dict_list)
+if args.csv:
+    ExtractCSV(args.csv,dict_list)
 
 if(args.stats):
     getStats(dict_list)
