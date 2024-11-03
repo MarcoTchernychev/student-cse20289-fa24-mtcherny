@@ -90,24 +90,25 @@ def getStats(dict_list):
         file.write(f"memberfuncs, {min(mf_list)}, {name_list[mf_list.index(min(mf_list))]}, {max(mf_list)}, {name_list[mf_list.index(max(mf_list))]}, rm {statistics.mean(mf_list):.1f}, {statistics.median(mf_list)}, {statistics.stdev(mf_list):.1f}\n")
         file.write(f"onelinefuncs, {min(olf_list)}, {name_list[olf_list.index(min(olf_list))]}, {max(olf_list)}, {name_list[olf_list.index(max(olf_list))]}, {statistics.mean(olf_list):.1f}, {statistics.median(olf_list)}, {statistics.stdev(olf_list):.1f}")
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--file", type=str)
-parser.add_argument("path", type=str)
-parser.add_argument("-r", action="store_true", default = False, help = "denotes if directories should be processed recursively (default is false)")
-parser.add_argument("--csv", type=str, default = None, help = "an argument that also has a filename specified for the output (default is none)")
-parser.add_argument("--stats", action="store_true", default = False, help = "denotes if stats should be computed across the numeric fields and reported (default is false)")
-parser.add_argument("--quiet", action="store_true", default = False, help = "requests the output to stay quiet (no output of the pretty, compact one-line per file from Task 2) (default is False)")
-args = parser.parse_args()
-if not args.path:
-    print("Make sure you specify a directory to scan")
-    exit(1)
-#if not args.csv:
-#    print("Make sure you specify the name of the csv file to write to")
-#    exit(1)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file", type=str)
+    parser.add_argument("path", type=str)
+    parser.add_argument("-r", action="store_true", default = False, help = "denotes if directories should be processed recursively (default is false)")
+    parser.add_argument("--csv", type=str, default = None, help = "an argument that also has a filename specified for the output (default is none)")
+    parser.add_argument("--stats", action="store_true", default = False, help = "denotes if stats should be computed across the numeric fields and reported (default is false)")
+    parser.add_argument("--quiet", action="store_true", default = False, help = "requests the output to stay quiet (no output of the pretty, compact one-line per file from Task 2) (default is False)")
+    args = parser.parse_args()
+    if not args.path:
+        print("Make sure you specify a directory to scan")
+        exit(1)
+    #if not args.csv:
+    #    print("Make sure you specify the name of the csv file to write to")
+    #    exit(1)
 
-dict_list = ScanDir(args.path, args.quiet, args.r)
-if args.csv:
-    ExtractCSV(args.csv,dict_list)
+    dict_list = ScanDir(args.path, args.quiet, args.r)
+    if args.csv:
+        ExtractCSV(args.csv,dict_list)
 
-if(args.stats):
-    getStats(dict_list)
+    if(args.stats):
+        getStats(dict_list)
