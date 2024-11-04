@@ -6,15 +6,16 @@ datetime=$(date +%Y-%m-%d_%H-%M)
 #echo "$date"
 log=$datetime-UnitTest.log
 #echo "$log"
+#running all of the unittest file
 python3 -m unittest tests.test_3a >> "$log" 2>&1
 python3 -m unittest tests.test_3b >> "$log" 2>&1
 python3 -m unittest tests.test_3c3d >> "$log" 2>&1
 python3 -m unittest tests.test_4 >> "$log" 2>&1
-
+#counting the amount of times all of them pass (should be 4)
 count=$(grep -o "OK" "$log" | wc -l)
 
 #echo "$count"
-
+#if none pass
 if [ -z "$count" ]; then
         cat "$log"
 else

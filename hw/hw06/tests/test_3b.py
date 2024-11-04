@@ -5,19 +5,19 @@ import hw6searchsrc
 path = "/escnfs/home/mtcherny/repos/student-cse20289-fa24-mtcherny/hw/hw06/tests/data/"
 class TestClass(unittest.TestCase):
     
-    def test_locPD(self):
+    def test_locPD(self): #lines of code
         self.assertEqual(len(hw6searchsrc.readFile(path+"ParamDictionary.cc")), 379)
-    def test_incPD(self):
+    def test_incPD(self): #includes
         self.assertEqual(hw6searchsrc.countInclude(hw6searchsrc.readFile(path+"ParamDictionary.cc")), 3)
-    def test_inclocPD(self):
+    def test_inclocPD(self): #local includes
         self.assertEqual(hw6searchsrc.countIncludeLocal(hw6searchsrc.readFile(path+"ParamDictionary.cc")), 1)
-    def test_mfPD(self):
+    def test_mfPD(self): #memberfuncs
         self.assertEqual(hw6searchsrc.countMemberFuncs(hw6searchsrc.readFile(path+"ParamDictionary.cc")), 26)
-    def test_olfPD(self):
+    def test_olfPD(self): #one line funcs
         self.assertEqual(hw6searchsrc.countOneLineFuncs(hw6searchsrc.readFile(path+"ParamDictionary.cc")), 10)
-    def test_pathPD(self):
+    def test_pathPD(self): #path
         self.assertEqual(hw6searchsrc.get_path_and_name(path+"ParamDictionary.cc")[0], path)
-    def test_filenamePD(self):
+    def test_filenamePD(self): #file name
         self.assertEqual(hw6searchsrc.get_path_and_name(path+"ParamDictionary.cc")[1], "ParamDictionary.cc")
 
     def test_locPQ(self):
